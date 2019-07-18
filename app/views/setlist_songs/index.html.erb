@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Setlist Songs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @setlist_songs.each do |setlist_song| %>
+      <tr>
+        <td><%= setlist_song.setlist_id %></td>
+        <td><%= setlist_song.song_id %></td>
+        <td><%= link_to 'Show', setlist_song %></td>
+        <td><%= link_to 'Edit', edit_setlist_song_path(setlist_song) %></td>
+        <td><%= link_to 'Destroy', setlist_song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Setlist Song', new_setlist_song_path %>

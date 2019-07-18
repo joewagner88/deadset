@@ -1,0 +1,17 @@
+<%= form_with(model: setlist_song, local: true) do |form| %>
+  <% if setlist_song.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(setlist_song.errors.count, "error") %> prohibited this setlist_song from being saved:</h2>
+
+      <ul>
+      <% setlist_song.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
