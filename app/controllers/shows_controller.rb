@@ -27,6 +27,10 @@ class ShowsController < ApplicationController
       #  FIXME - hardcoded for dead & co with 3
       ArtistShow.create(artist_id: 3, show_id: @show.id)
       show["sets"]["set"].each do |set|
+        # increment sets by 1 for ordering later
+        encore = set["encore"] if set["encore"]
+        set_num = 1
+        @setlist = Setlist.create(number: set_num, encore: encore, show_id: @show.id)
         set["song"].each do |song|
           if song["cover"]
             if Artist.find_by(mbid: song["cover"]["mbid"])
@@ -36,10 +40,11 @@ class ShowsController < ApplicationController
             end
           end
           if @artist
-            song = Song.create(name: song["name"], artist_id: @artist.id)      
+            @song = Song.create(name: song["name"], artist_id: @artist.id)      
           else
-            song = Song.create(name: song["name"])
+            @song = Song.create(name: song["name"])
           end
+          SetlistSong.create(song_id: @song.id, setlist_id: @setlist.id, position: 1 )
         end
       end
     end
